@@ -1,5 +1,7 @@
-import {Button} from "components/common";
-import {createGlobalStyle} from "styled-components"
+import { createGlobalStyle } from "styled-components";
+import { BrowserRouter,  Route, Routes } from "react-router-dom";
+import Login from "./pages/Login";
+import Home from "./pages/Home";
 
 const GlobalStyle = createGlobalStyle`
 
@@ -10,24 +12,22 @@ const GlobalStyle = createGlobalStyle`
     color: black;
     font-family: 'Kaushan Script'
   }
-`
+`;
 
 function App() {
   return (
     <>
-    <GlobalStyle />
-      <h1> App
-
-      </h1>
-      <Button > 
-       Primart
-      </Button>
-      <Button secondary> 
-        Secondary
-      </Button>
-      <Button large> 
-        Large Button
-      </Button>
+      <GlobalStyle />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={ <Login />} />
+           
+          
+          <Route path="/" element={ <Home />} />
+          
+          
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
