@@ -38,9 +38,8 @@ export default function Login() {
          <PasswordInput
           value={formFields.password}
           onChange={handleInputChange}
-          type="password"
           name="password"
-          placeholder="Password"
+         
         />
       </Form>
     </PageLayout>

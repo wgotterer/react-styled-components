@@ -2,7 +2,13 @@ import { Input } from "components/common";
 import React, { useState } from "react";
 import styled from "styled-components";
 
-const PasswordInputStyle = styled(Input)`
+
+// with the attrs we add anythign we want to add to this component
+// or in this case html element
+const PasswordInputStyle = styled(Input).attrs(() => ({
+    type: "password",
+    placeholder: "Password"
+}))`
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     `
