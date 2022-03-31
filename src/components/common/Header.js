@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { Link as ReactRouterDomLink} from "react-router-dom";
+import { Link as ReactRouterDomLink, useLocation } from "react-router-dom";
 import React from "react";
 
 const HeaderWrapper = styled.header`
@@ -10,48 +10,81 @@ const HeaderWrapper = styled.header`
   padding: 0 16px;
   position: fixed;
   top: 0;
-  background: #eee;
+  background-image: linear-gradient(to right, #f8049c, #fdd54f);
+  border-bottom: 3px solid #fdd54f;
 `;
 
 const Menu = styled.menu`
-  display: flex;
-  position: relative;
-  width: initial;
-  border-bottom: none;
-  margin: auto 0 auto auto;
+  display: block;
+  position: absolute;
+  width: 100%;
+  top: 60px;
+  padding: 8px;
+  box-sizing: border-box;
+  left: 0;
+  border-bottom: 3px solid #fdd54f;
+  background: white;
+
   font-family: "Open Sans";
-  background: none;
-  left: initial;
-  top: initial;
+
+  @media (min-width: 768px) {
+    display: flex;
+    background: none;
+    left: initial;
+    top: initial;
+    margin: auto 0 auto auto;
+    position: relative;
+    width: initial;
+    border-bottom: none;
+  }
 `;
 
-
 // create this react component becuase the isActive prop throws an error becuase the Link from react-router-dom
-// doesnt accept it as a prop. Therefore we re-name it and pass in isActive prop destructured and then 
-// return the ReactRouterDomLink which is an alias for Link and pass it all the props and not the isActive props because it's destructured. 
-const Link = ({isActive, children, ...props}) => {
-    return(
-        <ReactRouterDomLink {...props}>
-            {children}
-        </ReactRouterDomLink>
-    )
-}
+// doesnt accept it as a prop. Therefore we re-name it and pass in isActive prop destructured and then
+// return the ReactRouterDomLink which is an alias for Link and pass it all the props and not the isActive props because it's destructured.
+const Link = ({ isActive, children, ...props }) => {
+  return <ReactRouterDomLink {...props}>{children}</ReactRouterDomLink>;
+};
 
 const StyledLink = styled(Link)`
-padding: 4px 6ex;
-display: block;
-text-align: center;
-box-sizing: border-box;
-margin: auto 0;
-font-weight: ${p => p.isActive ? "bold" : "normal" };
-`
+  padding: 4px 2ex;
+  display: block;
+  text-align: center;
+  box-sizing: border-box;
+  margin: auto 0;
+  font-weight: ${(p) => (p.isActive ? "bold" : "normal")};
+  color: black;
+`;
+
+const MobilMenuIcon = styled.div`
+  margin: auto 0 auto auto;
+  width: 25px;
+  min-width: 25px;
+  padding: 5px;
+  > div {
+    height: 3px;
+    background: black;
+    margin: 5px 0;
+    width: 100%;
+  }
+`;
 
 export function Header() {
+  const { pathname } = useLocation();
   return (
     <HeaderWrapper>
+      <MobilMenuIcon>
+        <div />
+        <div />
+        <div />
+      </MobilMenuIcon>
       <Menu>
-        <StyledLink to="/">Home</StyledLink>
-        <StyledLink to="/login" isActive>Login</StyledLink>
+        <StyledLink to="/" isActive={pathname === "/"}>
+          Home
+        </StyledLink>
+        <StyledLink to="/login" isActive={pathname === "/login"}>
+          Login
+        </StyledLink>
       </Menu>
     </HeaderWrapper>
   );
