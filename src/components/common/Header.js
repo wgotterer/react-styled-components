@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { Link as ReactRouterDomLink, useLocation } from "react-router-dom";
-import React from "react";
+import React, {useState} from "react";
 
 const HeaderWrapper = styled.header`
   height: 60px;
@@ -15,7 +15,7 @@ const HeaderWrapper = styled.header`
 `;
 
 const Menu = styled.menu`
-  display: block;
+  display: ${p => p.open ? "block" : "none"};
   position: absolute;
   width: 100%;
   top: 60px;
@@ -67,18 +67,23 @@ const MobilMenuIcon = styled.div`
     margin: 5px 0;
     width: 100%;
   }
+  @media(min-width: 768px) {
+      display: none;
+  }
 `;
 
 export function Header() {
   const { pathname } = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false)
+
   return (
     <HeaderWrapper>
-      <MobilMenuIcon>
+      <MobilMenuIcon onClick={() => setMenuOpen(s => !s)}>
         <div />
         <div />
         <div />
       </MobilMenuIcon>
-      <Menu>
+      <Menu open={menuOpen}>
         <StyledLink to="/" isActive={pathname === "/"}>
           Home
         </StyledLink>
