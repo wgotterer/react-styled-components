@@ -2,6 +2,9 @@ import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { BrowserRouter,  Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import LightTheme from "themes/light"
+import DarktTheme from "themes/dark"
+import { useState } from "react";
 
 const GlobalStyle = createGlobalStyle`
 
@@ -13,15 +16,15 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Kaushan Script'
   }
 `;
-// add variables inside the theme. Injects all these styles as props to the styled components
-const theme = {
-primaryColor: "#f8049c",
-secondaryColor: "#fdd54f"
-}
+
 
 function App() {
+
+  const [theme, setTheme] = useState(LightTheme)
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={{...theme, setTheme: () => {
+      setTheme(currentState => currentState.id === "light" ? DarktTheme : LightTheme)
+    }}}>
       <GlobalStyle />
       <BrowserRouter>
         <Routes>
