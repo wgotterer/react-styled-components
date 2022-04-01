@@ -1,5 +1,4 @@
-import { Input } from "components/common";
-import React, { useState } from "react";
+
 import styled, {keyframes} from "styled-components";
 
 const rotation = keyframes`

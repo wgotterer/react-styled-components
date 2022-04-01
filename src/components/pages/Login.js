@@ -53,7 +53,7 @@ export default function Login() {
     <PageLayout>
       <h1>Home</h1>
       <Form onSubmit={handleSubmit}>
-          <Spinner />
+         
         {loading ? (
           <Spinner />
         ) : (
